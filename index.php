@@ -10,7 +10,15 @@ if ($route === 'teams') {
     // load teams ctrl
     require('controllers/teams.php');
     showTeams();
+
+} else if ($route === 'team') {
+    require('controllers/teams.php');
+    $idTeam = $_GET['id'];
+    showTeam($idTeam);
+
 }
+
+
 
 
 

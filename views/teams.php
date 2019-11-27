@@ -24,7 +24,7 @@
                     <div id="card" class="card-body">
                         <div class="text-center">
                             <h5 class="card-title"><?php echo $team['name'];?></h5>
-                            <a href="# " class="btn btn-primary">En savoir plus</a>
+                            <a href="?route=team&id=<?php echo $team['id']; ?>" class="btn btn-primary">En savoir plus</a>
                         </div>
                     </div>
                 </div>
