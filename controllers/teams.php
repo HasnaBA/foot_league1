@@ -14,13 +14,13 @@ function showTeam($id) {
     
     $team = getTeam($id);
     $players = getPlayers($id);
-    $date = new DateTime($players['birthday_date']);
+    $matchs_played = getMatchsPlayed($id);
+    $matchs_not_played = getMatchsNotPlayed($id);
+
     require('views/team.php');
 
 }
-function DateTime(){
 
 
-}
 
 ?>

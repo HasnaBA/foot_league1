@@ -34,38 +34,53 @@ function getTeam ($id)
 
  
 function getPlayers ($id) {
-    $db = dbConnect();
-    $stmt = $db->prepare('SELECT 
-      players.*, players_has_teams.number
-      FROM players 
-      INNER JOIN players_has_teams ON players.id = players_has_teams.id_player
-      WHERE players_has_teams.id_team = :id 
-      AND players_has_teams.number != 0 
-      ORDER BY players_has_teams.number');
-      //prend tous les joueurs sauf 0 et les ordonnent par numéro
-    $stmt->bindValue(':id', $id);
-    
-    $stmt->execute();
-    return $stmt->fetchAll();
-  }
+  $db = dbConnect();
+  $stmt = $db->prepare('SELECT 
+    players.*, players_has_teams.number
+    FROM players 
+    INNER JOIN players_has_teams ON players.id = players_has_teams.id_player
+    WHERE players_has_teams.id_team = :id 
+    AND players_has_teams.number != 0 
+    ORDER BY players_has_teams.number');
+    //prend tous les joueurs sauf 0 et les ordonnent par numéro
+  $stmt->bindValue(':id', $id);
   
-  $req = 'SELECT 
-  matchs.*, players_has_teams.number
-  FROM matchs 
-  INNER JOIN teams AS th ON matchs.id_team_home = th.id
-  INNER JOIN teams AS ta ON matchs.id_team_away = ta.id
-  WHERE th.id = :id_team OR ta.id = :id_team)'
+  $stmt->execute();
+  return $stmt->fetchAll();
+}
   
-  function getMatchs ($id) {
-    $db = dbConnect();
-    $stmt = $db->prepare('
-      
-      
-    $stmt->bindValue(':id', $id);
+$req = 'SELECT 
+matchs.*, ta.name AS ta_name, th.name AS th_name
+FROM matchs 
+INNER JOIN teams AS th ON matchs.id_team_home = th.id
+INNER JOIN teams AS ta ON matchs.id_team_away = ta.id
+WHERE (th.id = :id_team OR ta.id = :id_team) ';
+  
+function getMatchsPlayed ($id) 
+{
+  global $req;
+  $db = dbConnect();
+  $stmt = $db->prepare($req . 'AND matchs.score_home IS NOT NULL');
     
-    $stmt->execute();
-    return $stmt->fetchAll();
-  }
+  $stmt->bindValue(':id_team', $id);
+  
+  $stmt->execute();
+  return $stmt->fetchAll();
+ 
+}
+
+function getMatchsNotPlayed ($id) 
+{
+  global $req;
+  $db = dbConnect();
+  $stmt = $db->prepare($req . 'AND matchs.score_home IS NULL');
+    
+  $stmt->bindValue(':id_team', $id);
+  
+  $stmt->execute();
+  return $stmt->fetchAll();
+}
+
   
 
 
