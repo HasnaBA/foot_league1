@@ -153,7 +153,7 @@
                     <tbody>
 
                         <tr>
-                            <td>site: <a href="?route=team&id=<?php echo $team['link']; ?>"> </a><?php echo $team['link']; ?> </td>
+                            <td>site: <a href="./team/<?php echo $team['link']; ?>"> </a><?php echo $team['link']; ?> </td>
                         </tr>
                         <tr>
                             <td>siège: <br> <strong><?php echo $team['adress']; ?></strong></td>
@@ -177,10 +177,10 @@
                     <tbody>
 
                         <tr>
-                            <td>site: <a href="?route=team&id=<?php echo $team['link']; ?>"> </a><?php echo $team['link']; ?> </td>
+                            <td>stade: <?php echo $team['stadiumName']; ?> </td>
                         </tr>
                         <tr>
-                            <td>siège: <br> <strong><?php echo $team['adress']; ?></strong></td>
+                            <td>siège: <br> <strong><?php echo $team['stadiumAdress']; ?></strong></td>
                         </tr>
 
                     </tbody>

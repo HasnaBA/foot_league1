@@ -1,9 +1,12 @@
 <?php
+$data = explode('/', substr($_SERVER['REQUEST_URI'], 1));
+array_shift($data);
+
 
 // Dans ce fichier que des controllers
 
 //if 'route' exists then get route else teams
-$route = isset($_GET['route']) ? $_GET['route'] : 'teams';
+$route = $data[0] ? $data[0] : 'teams';
 
 
 if ($route === 'teams') {
@@ -13,7 +16,7 @@ if ($route === 'teams') {
 
 } else if ($route === 'team') {
     require('controllers/teams.php');
-    $idTeam = $_GET['id'];
+    $idTeam = $data[1];
     showTeam($idTeam);
 
 }

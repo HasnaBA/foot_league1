@@ -16,6 +16,7 @@ function showTeam($id) {
     $players = getPlayers($id);
     $matchs_played = getMatchsPlayed($id);
     $matchs_not_played = getMatchsNotPlayed($id);
+    
 
     require('views/team.php');
 

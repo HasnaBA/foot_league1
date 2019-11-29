@@ -19,8 +19,9 @@ function getTeam ($id)
   $db = dbConnect();
 
   $stmt = $db->prepare('SELECT 
-    teams.*, coachs.name AS coach_name, coachs.photo 
+    teams.*, coachs.name AS coach_name, coachs.photo, stadiums.id AS stadiumId, stadiums.name AS stadiumName, stadiums.adress AS stadiumAdress
     FROM teams 
+    INNER JOIN stadiums ON teams.id_stadium = stadiums.id 
     INNER JOIN coachs_has_teams ON teams.id = coachs_has_teams.id_team 
     INNER JOIN coachs ON coachs_has_teams.id_coach = coachs.id
     WHERE teams.id = :id');
@@ -80,6 +81,7 @@ function getMatchsNotPlayed ($id)
   $stmt->execute();
   return $stmt->fetchAll();
 }
+
 
   
 
